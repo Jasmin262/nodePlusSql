@@ -26,21 +26,21 @@ app.get('/api/users', (req, res) => {
     })
 })
 
- app.post('/api/users', Validator, (req, res) => {
-    const {first_name, last_name, age} = req.body
-    client.query(`INSERT INTO users (first_name, last_name, age) VALUES($1, $2, $3)` , [first_name, last_name, age], (err, results) => {
-        if(err) throw err
-        res.json(results)
-    })
-}) 
+//  app.post('/api/users', Validator, (req, res) => {
+//     const {first_name, last_name, age} = req.body
+//     client.query(`INSERT INTO users (first_name, last_name, age) VALUES($1, $2, $3)` , [first_name, last_name, age], (err, results) => {
+//         if(err) throw err
+//         res.json(results)
+//     })
+// }) 
 
-/*app.post('/api/users', (req, res) => {
+
+app.post('/api/users', (req, res) => {
     const {first_name, last_name, age} = req.body
     client.query(`INSERT INTO users (first_name, last_name, age) VALUES('${first_name}', '${last_name}', '${age}')`, (err, results) => {
         if(err) throw err
         res.json(results)
     })
 })
-*/
 
 app.listen(port, console.log(`Server is listening on port ${port}`))
