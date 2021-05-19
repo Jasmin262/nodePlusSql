@@ -37,7 +37,7 @@ usersRouter.post('/api/users', (req, res) => {
 usersRouter.put('/api/users/:id', (req, res) => {
     let {id} = req.params
     const {first_name, last_name, age} = req.body
-    client.query(`UPDATE users SET first_name='${req.body.first_name}', last_name='${last_name}', age='${age}'  WHERE ID = ${id}`, (err, results) => {
+    client.query(`UPDATE users SET first_name='${first_name}', last_name='${last_name}', age='${age}'  WHERE ID = $1`, [id], (err, results) => {
         if(err) throw err
         res.json(results)
     } )
@@ -45,7 +45,7 @@ usersRouter.put('/api/users/:id', (req, res) => {
 
 usersRouter.delete('/api/users/:id', (req, res) => {
     let {id} = req.params
-    client.query(`DELETE FROM users WHERE ID = ?`, Number(id), (err, results) => {
+    client.query(`DELETE FROM users WHERE ID = $1`, [id], (err, results) => {
         if(err) throw err
         res.send('User deleted')
     })

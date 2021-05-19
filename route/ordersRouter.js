@@ -37,7 +37,7 @@ ordersRouter.post('/api/orders', (req, res) => {
 ordersRouter.put('/api/orders/:id', (req, res) => {
     let {id} = req.params
     const {price, date, user_id} = req.body
-    client.query(`UPDATE orders SET price='${req.body.price}', date='${date}', user='${user_id} WHERE ID = ${id}`, (err, results) => {
+    client.query(`UPDATE orders SET price='${price}', date='${date}', user='${user_id} WHERE ID = $1`, [id], (err, results) => {
         if(err) throw err
         res.json(results)
     } )
@@ -45,7 +45,7 @@ ordersRouter.put('/api/orders/:id', (req, res) => {
 
 ordersRouter.delete('/api/orders/:id', (req, res) => {
     let {id} = req.params
-    client.query(`DELETE FROM users WHERE ID = ?`, Number(id), (err, results) => {
+    client.query(`DELETE FROM orders WHERE ID = $1`, [id], (err, results) => {
         if(err) throw err
         res.send('Order deleted')
     })
